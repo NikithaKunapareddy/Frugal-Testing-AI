@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Q3 Shadow DOM Testbed</title>
+</head>
+<body>
+    <enterprise-portal id="root-gateway"></enterprise-portal>
+
+    <script>
+        // Create the nested Shadow DOM structure
+
+        // 1. Root Gateway (Open)
+        const gateway = document.getElementById('root-gateway');
+        const gatewayShadow = gateway.attachShadow({ mode: 'open' });
+
+        // 2. Payment Terminal (Closed & Obfuscated Class)
+        const paymentTerminal = document.createElement('payment-terminal');
+        paymentTerminal.className = 'obfuscated_v4_x89a';
+        gatewayShadow.appendChild(paymentTerminal);
+        
+        // This is CLOSED, meaning paymentTerminal.shadowRoot will return null
+        const paymentShadow = paymentTerminal.attachShadow({ mode: 'closed' });
+
+        // 3. Security Sandbox (Open)
+        const sandbox = document.createElement('security-sandbox');
+        sandbox.id = 'iframe-sandbox-wrapper';
+        paymentShadow.appendChild(sandbox);
+
+        const sandboxShadow = sandbox.attachShadow({ mode: 'open' });
+
+        // 4. The Target Button
+        const button = document.createElement('button');
+        button.className = 'trigger-finalize';
+        button.setAttribute('data-qa-state', 'unlocked-token');
+        button.textContent = 'Authorize Ledger Funds';
+        button.onclick = () => {
+            console.log("SUCCESS: Button clicked through closed shadow DOM!");
+            document.body.style.backgroundColor = "green";
+        };
+
+        sandboxShadow.appendChild(button);
+    </script>
+</body>
+</html>
