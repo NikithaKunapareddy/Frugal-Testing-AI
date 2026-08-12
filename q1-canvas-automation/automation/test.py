@@ -177,19 +177,3 @@ async def run_q1_automation():
 
 if __name__ == "__main__":
     asyncio.run(run_q1_automation())
-
-# Documentation pass 0
-
-# Documentation pass 1
-
-# Documentation pass 2
-
-# Documentation pass 3
-
-# Documentation pass 4
-
-# Documentation pass 5
-
-# Documentation pass 6
-
-# Documentation pass 7
