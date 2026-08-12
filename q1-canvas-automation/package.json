@@ -1,0 +1,16 @@
+{
+  "name": "q1-canvas-automation",
+  "version": "1.0.0",
+  "description": "Q1 - Dynamic HTML5 Canvas State Drifts & Asynchronous Race Interceptions",
+  "scripts": {
+    "server": "node server/index.js",
+    "test": "node automation/test.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "ws": "^8.17.0"
+  },
+  "devDependencies": {
+    "playwright": "^1.46.0"
+  }
+}
