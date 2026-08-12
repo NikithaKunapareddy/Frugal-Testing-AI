@@ -11,9 +11,12 @@ async def run_q3_automation():
     
     with open(strategy_path, "r") as f:
         piercing_script = f.read()
+        
+    prompt_path = os.path.join(current_dir, "accessibility_system_prompt.txt")
+    prompt_exists = os.path.exists(prompt_path)
 
     async with async_playwright() as p:
-        browser = await p.chromium.launch(headless=True)
+        browser = await p.chromium.launch(headless=False)
         context = await browser.new_context()
         
         # 1. Shadow DOM Piercing: Inject our resilient strategy BEFORE the page loads
@@ -25,7 +28,9 @@ async def run_q3_automation():
         await page.goto(testbed_url)
         
         # 2. Extracting target through the captured shadow roots
-        print("\n[automation] Traversing captured closed Shadow Roots to find target...")
+        print("\n[automation] Waiting 2 seconds so you can see the white screen...")
+        await asyncio.sleep(2)
+        print("[automation] Traversing captured closed Shadow Roots to find target...")
         
         # We execute our custom JS strategy to find the button inside the closed boundary
         # and click it directly via the DOM node reference we captured.
@@ -44,11 +49,15 @@ async def run_q3_automation():
         else:
             print("[-] FAIL: Could not locate element inside shadow roots.")
             
+        await asyncio.sleep(10)
         await browser.close()
         
         print("\n================ Q3 RESULT SUMMARY ================")
         print("  [PASS] Shadow DOM Piercing Strategy Deployed")
-        print("  [PASS] OS Accessibility Prompt Architecture Generated")
+        if prompt_exists:
+            print("  [PASS] Accessibility-Tree System Prompt Included")
+        else:
+            print("  [FAIL] Accessibility-Tree System Prompt Missing!")
         print("=====================================================")
 
 if __name__ == "__main__":
