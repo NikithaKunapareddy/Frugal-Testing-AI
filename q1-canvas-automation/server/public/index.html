@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Q1 Canvas Ticker Testbed</title>
+  <style>
+    body { font-family: sans-serif; background: #111; color: #eee; text-align: center; }
+    canvas { background: #444; border: 2px solid #666; margin-top: 20px; }
+    #error-banner {
+      display: none;
+      background: #b00020; color: white; padding: 10px; margin: 10px auto;
+      max-width: 400px; font-weight: bold;
+    }
+    #status { margin-top: 10px; font-size: 14px; color: #9f9; }
+  </style>
+</head>
+<body>
+  <h2>Live Canvas Ticker (Q1 Testbed)</h2>
+  <div id="error-banner">Invalid state payload rejected by client validator.</div>
+  <canvas id="ticker" width="400" height="300"></canvas>
+  <div id="status">connecting...</div>
+  <script src="app.js"></script>
+</body>
+</html>
